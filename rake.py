@@ -61,6 +61,8 @@ def split_sentences(text):
 
 
 def build_stop_word_regex(stop_word_file_path):
+    from utils import STOP_WORDS
+    #return STOP_WORDS
     stop_word_list = load_stop_words(stop_word_file_path)
     stop_word_regex_list = []
     for word in stop_word_list:
@@ -123,13 +125,13 @@ def generate_candidate_keyword_scores(phrase_list, word_score):
 class Rake(object):
     def __init__(self, stop_words_path):
         self.stop_words_path = stop_words_path
+        from utils import STOP_WORDS
         self.__stop_words_pattern = build_stop_word_regex(stop_words_path)
 
     def run(self, text):
         sentence_list = split_sentences(text)
 
         phrase_list = generate_candidate_keywords(sentence_list, self.__stop_words_pattern)
-
         word_scores = calculate_word_scores(phrase_list)
 
         keyword_candidates = generate_candidate_keyword_scores(phrase_list, word_scores)
@@ -192,3 +194,7 @@ Looking forward to receiving your resume and going over the position in more det
 '''
 
 r = Rake("all_stop_words.txt")
+
+#print(load_stop_words("all_stop_words.txt"))
+
+
