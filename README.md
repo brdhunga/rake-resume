@@ -5,4 +5,4 @@ A simple Flask application that uses RAKE algorithm to extract keywords from res
 
 Please be aware that it does not use higher level NLP such as POS tagging at this point. I might improve on it in the future to do so. 
 
-* [Link is here](rakeresume.herokuapp.com)
+* [Link is here](http://resumerake.herokuapp.com)
