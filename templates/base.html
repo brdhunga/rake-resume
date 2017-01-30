@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html><head><style type="text/css">.mui-textfield.mui-textfield--float-label > label {-webkit-transition:all .15s ease-out;-moz-transition:all .15s ease-out;-o-transition:all .15s ease-out;transition:all .15s ease-out;}</style><style type="text/css">@keyframes mui-btn-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-btn{animation-duration:0.0001s;animation-name:mui-btn-inserted;}@keyframes mui-dropdown-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}[data-mui-toggle="dropdown"]{animation-duration:0.0001s;animation-name:mui-dropdown-inserted;}@keyframes mui-btn-inserted,mui-dropdown-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-btn[data-mui-toggle="dropdown"]{animation-duration:0.0001s;animation-name:mui-btn-inserted,mui-dropdown-inserted;}@keyframes mui-tab-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}[data-mui-toggle="tab"]{animation-duration:0.0001s;animation-name:mui-tab-inserted;}@keyframes mui-textfield-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-textfield > input{animation-duration:0.0001s;animation-name:mui-textfield-inserted;}@keyframes mui-textfield-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-textfield > textarea{animation-duration:0.0001s;animation-name:mui-textfield-inserted;}@keyframes mui-select-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-select > select{animation-duration:0.0001s;animation-name:mui-select-inserted;}@keyframes mui-node-inserted{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-select > select ~ .mui-event-trigger{animation-duration:0.0001s;animation-name:mui-node-inserted;}@keyframes mui-node-disabled{from{-ms-zoom:1;}to{-ms-zoom:1;}}.mui-select > select:disabled ~ .mui-event-trigger{animation-duration:0.0001s;animation-name:mui-node-disabled;}</style>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="https://www.muicss.com/examples/v1/example-layouts/landing-page/static/style.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script><style type="text/css">
+:root #header + #content > #left > #rlblock_left
+{ display: none !important; }</style>
+  </head>
+  <body>
+    <header class="mui-appbar mui--z1">
+      <div class="mui-container">
+        <table width="100%">
+          <tbody><tr class="mui--appbar-height">
+            <td class="mui--text-title">Resume Extractor</td>
+            <td align="right">
+              <ul class="mui-list--inline mui--text-body2">
+                <li><a href="http://buddhawebstudio.com">About</a></li>
+                <li></li>
+                
+              </ul>
+            </td>
+          </tr>
+        </tbody></table>
+      </div>
+    </header>
+    <div id="content-wrapper" class="mui--text-center">
+      <div class="mui--appbar-height"></div>
+      <br>
+      <br>
+
+        {% block content %}
+
+        
+
+        {% endblock %}
+      
+      <br>
+      <br>
+
+    </div>
+    <footer>
+      <div class="mui-container mui--text-center">
+        Made with ♥ by <a href="http://bivu.me">Bivu Raj</a>
+      </div>
+    </footer>
+  
+
+</body></html>
