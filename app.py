@@ -5,9 +5,13 @@ from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
-  return render_template('index.html')
+    if request.method == "POST":
+        job_description = request.form["description"]
+        
+        return render_template("results.html")
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
