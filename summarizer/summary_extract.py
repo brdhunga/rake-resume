@@ -1,9 +1,11 @@
 from re import split as regex_split, sub as regex_sub, UNICODE as REGEX_UNICODE
 from collections import Counter
+from math import fabs
 
 from .utils import STOPWORDS
 
 MIN_KEYWORD_LENGTH = 15
+IDEAL = 20.0
 
 
 def split_sentences(text):
@@ -46,6 +48,10 @@ def keywords(text):
 
 
 def title_score(title, sentence):
+    '''
+    adds all the words from sentence present in title and 
+    then divides the sum(occurances)/len(title)
+    '''
     title = [x for x in title if x not in STOPWORDS]
     count = 0.0
     for word in sentence:
@@ -56,3 +62,40 @@ def title_score(title, sentence):
         return 0.0
         
     return count/len(title)
+
+
+def length_score(sentence):
+    '''
+    normalzie a sentence's score
+    '''
+    return 1 - fabs(IDEAL - len(sentence)) / IDEAL
+
+
+def sentence_position(i, size):
+    """
+    different sentence position might indicate variness
+    in importance
+    """
+    normalized = i*1.0 / size
+    if 0 < normalized <= 0.1:
+        return 0.17
+    elif 0.1 < normalized <= 0.2:
+        return 0.23
+    elif 0.2 < normalized <= 0.3:
+        return 0.14
+    elif 0.3 < normalized <= 0.4:
+        return 0.08
+    elif 0.4 < normalized <= 0.5:
+        return 0.05
+    elif 0.5 < normalized <= 0.6:
+        return 0.04
+    elif 0.6 < normalized <= 0.7:
+        return 0.06
+    elif 0.7 < normalized <= 0.8:
+        return 0.04
+    elif 0.8 < normalized <= 0.9:
+        return 0.04
+    elif 0.9 < normalized <= 1.0:
+        return 0.15
+    else:
+        return 0
