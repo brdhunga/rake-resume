@@ -71,6 +71,40 @@ def length_score(sentence):
     return 1 - fabs(IDEAL - len(sentence)) / IDEAL
 
 
+def dbs(words, keywords):
+    if (len(words) == 0):
+        return 0
+
+    summ = 0
+    first = []
+    second = []
+
+    for i, word in enumerate(words):
+        if word in keywords:
+            score = keywords[word]
+            if first == []:
+                first = [i, score]
+            else:
+                second = first
+                first = [i, score]
+                dif = first[0] - second[0]
+                summ += (first[1]*second[1]) / (dif ** 2)
+
+    # number of intersections
+    k = len(set(keywords.keys()).intersection(set(words))) + 1
+    return (1/(k*(k+1.0))*summ)
+
+
+def sbs(words, keywords):
+    score = 0.0
+    if len(words) == 0:
+        return 0
+    for word in words:
+        if word in keywords:
+            score += keywords[word]
+    return (1.0 / fabs(len(words)) * score)/10.0
+
+
 def sentence_position(i, size):
     """
     different sentence position might indicate variness
@@ -99,3 +133,42 @@ def sentence_position(i, size):
         return 0.15
     else:
         return 0
+
+
+def score(sentences, title_words, keywords):
+    """
+    score sentences based on different features
+    """
+    sentence_size = len(sentences)
+    ranks = Counter()
+    for i, s in enumerate(sentences):
+        sentence = split_words(s)
+        title_feature = title_score(title_words, sentence)
+        sentence_length = length_score(sentence)
+        sentence_pos = sentence_position(i+1, sentence_size)
+        sbs_feature = sbs(sentence, keywords)
+        dbs_feature = dbs(sentence, keywords)
+        frequency = (sbs_feature + dbs_feature) / 2.0 * 10.0
+
+        #weighted average of scores from four categories
+        total_score = (title_feature*1.5 + frequency*2.0 +
+                      sentence_length*1.0 + sentence_pos*1.0) / 4.0
+        ranks[s] = total_score
+    return ranks
+
+
+def summarize(title, text):
+    summaries = []
+    sentences = split_sentences(text)
+    keys = keywords(text)
+    title_words = split_words(title)
+
+    if len(sentences) <= 5:
+        return sentences
+
+    #score setences, and use the top 5 sentences
+    ranks = score(sentences, title_words, keys).most_common(6)
+    for rank in ranks:
+        summaries.append(rank[0])
+
+    return summaries
