@@ -1,5 +1,5 @@
 import os
-from collections import OrderedDict
+from collections import OrderedDict, Counter
 
 from flask import Flask, render_template, request, redirect, url_for
 
@@ -42,7 +42,11 @@ def get_common_words(keywords, sentences):
     '''
     words_from_keywords = flatten_values(keywords)
     words_from_summaries = flatten_values(sentences)
-    return [element for element in words_from_keywords if element in words_from_summaries]
+    common_words = [element for element in words_from_keywords if element in words_from_summaries]
+    common_words = list(map(lambda x: x.strip().lower(), common_words))
+    common_words_dict = Counter(common_words) # most_common(n)
+
+    return common_words_dict
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -58,7 +62,8 @@ def index():
                 
                 important_sentences = summarize(job_title, job_description) 
                 
-                common_words = get_common_words(keyword_dict, important_sentences)                
+                common_words = get_common_words(keyword_dict, important_sentences)
+
                
                 return render_template("results.html", 
                                     keywords=keyword_dict, 

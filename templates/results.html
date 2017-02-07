@@ -30,8 +30,8 @@
 			  <hr />
 			  <div class="mui-row">
 
-			  		{% for word in common_words %}
-				  		<div class="mui-col-md-3">{{ word }}</div>
+			  		{% for word, count in common_words.most_common() %}
+				  		<div class="mui-col-md-3">{{ word }} ({{count}})</div>
 				  	{% endfor %}
 			  </div>
 			</div>
